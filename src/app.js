@@ -43,4 +43,16 @@ app.put("/livros/:id",(req,res)=>{
 function BuscaLivro(id){
     return livros.findIndex(livros => livros.id == id)
 }
+
+
+
+app.delete("/livros/:id",(req,res)=>{
+    let {id} = req.params
+    let index = BuscaLivro()
+    livros.splice(index,1)
+    res.send(`livro ${id} removido com sucesso` )
+
+})
+
+
 export default app
