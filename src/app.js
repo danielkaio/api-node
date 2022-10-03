@@ -48,7 +48,7 @@ function BuscaLivro(id){
 
 app.delete("/livros/:id",(req,res)=>{
     let {id} = req.params
-    let index = BuscaLivro()
+    let index = BuscaLivro(id)
     livros.splice(index,1)
     res.send(`livro ${id} removido com sucesso` )
 
