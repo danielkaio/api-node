@@ -1,13 +1,11 @@
-import livros from "../models/livro.js";
+import autores from "../models/autor.js";
 
-class LivroController {
+class AutorController {
 
     static listar = (req, res) => {
 
-        livros.find()
-        .populate("autor","nome")
-           .exec ((err, livros) => {
-            res.status(200).json(livros)
+        autores.find((err, autores) => {
+            res.status(200).json(autores)
 
         })
     }
@@ -16,22 +14,22 @@ class LivroController {
     static listarId = (req,res)=>{
 
         const id = req.params.id
-        livros.findById(id,(err,livros)=>{
+        autores.findById(id,(err,autores)=>{
             if (err){
                 res.status(400).send({message:`${err.message} - id não existe`})
             }else{
-                res.status(200).send(livros)
+                res.status(200).send(autores)
             }
         })
     }
 
     static criar = (req,res)=>{
-        let livro = new livros(req.body)
-        livro.save((err)=>{
+        let autor = new autores(req.body)
+        autor.save((err)=>{
             if (err){
-                res.status(500).send({message:`${err.message}- falha ao cadastrar o livro`})
+                res.status(500).send({message:`${err.message}- falha ao cadastrar o autor`})
             }else{
-                res.status(201).send(livro.toJSON())
+                res.status(201).send(autor.toJSON())
             }
         })
     }
@@ -39,9 +37,9 @@ class LivroController {
     static atualizar =(req,res)=>{
 
         const id = req.params.id
-        livros.findByIdAndUpdate(id , {$set:req.body}, (err)=>{
+        autores.findByIdAndUpdate(id , {$set:req.body}, (err)=>{
             if(!err){
-                res.status(200).send({message:"livro atualizado com sucesso"})
+                res.status(200).send({message:"autor atualizado com sucesso"})
             }else{
                 res.status(500).send({message:err.message})
             }
@@ -50,9 +48,9 @@ class LivroController {
 
     static deletar =(req,res)=>{
         const id = req.params.id
-        livros.findByIdAndRemove(id,(err)=>{
+        autores.findByIdAndRemove(id,(err)=>{
             if (! err){
-                res.status(200).send({message:"livro excluido"})
+                res.status(200).send({message:"autor excluido"})
             }else{
                 res.status(500).send({message:err})
             }
@@ -60,4 +58,4 @@ class LivroController {
     }
 }
 
-export default LivroController
+export default AutorController
